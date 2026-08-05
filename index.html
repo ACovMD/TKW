@@ -10,6 +10,10 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html, body {
+    height: 100%;
+  }
+
   body {
     font-family: 'Jost', sans-serif;
     background: #FFFFFF;
@@ -19,8 +23,53 @@
 
   a { text-decoration: none; color: inherit; }
 
+  /* ── ABOVE-THE-FOLD WRAPPER ── */
+  /* Ticker + header + hero all live inside one viewport-height block
+     so the full hero image is always visible without scrolling. */
+  .top-viewport {
+    height: 100vh;
+    min-height: 560px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── SCROLLING BANNER ── */
+  .ticker {
+    flex-shrink: 0;
+    background: #1A1610;
+    overflow: hidden;
+    padding: 10px 0;
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 22s linear infinite;
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-right: 28px;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+  .ticker-item::after {
+    content: '◆';
+    font-size: 6px;
+    color: #C9A070;
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
   /* ── NAV ── */
   header {
+    flex-shrink: 0;
     background: #FFFFFF;
   }
 
@@ -30,7 +79,7 @@
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 10px 40px;
+    padding: 8px 40px;
   }
 
   .nav-left {
@@ -50,15 +99,15 @@
 
   .logo {
     text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    white-space: nowrap;
+    display: block;
   }
 
-  .logo img { height: 280px; width: auto; display: block; margin: 0 auto; }
+  .logo img {
+    height: min(340px, 26vh);
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
 
   .nav-right {
     display: flex;
@@ -93,17 +142,24 @@
     background: #1A1610;
   }
 
-/* ── HERO ── */
+  /* ── HERO ── */
   .hero {
-    width: min(97vw, 1400px);
-    margin: 0 auto;
-    padding-top: 20px;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #FFFFFF;
+    padding: 8px 24px;
   }
 
   .hero img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
+    object-fit: contain;
     display: block;
   }
 
@@ -124,12 +180,13 @@
     letter-spacing: 0.05em;
   }
 
-  .hero-caption {
+  /* ── SHOP NOW ── */
+  .shop-cta {
     text-align: center;
-    padding: 28px 20px 60px;
+    padding: 22px 20px 56px;
   }
 
-  .hero-caption a {
+  .shop-cta a {
     display: inline-block;
     font-size: 11px;
     font-weight: 400;
@@ -141,7 +198,7 @@
     padding: 14px 42px;
     transition: all 0.2s;
   }
-  .hero-caption a:hover {
+  .shop-cta a:hover {
     background: #1A1610;
     color: #FFFFFF;
   }
@@ -181,42 +238,59 @@
   @media (max-width: 768px) {
     .nav-left { display: none; }
     .nav-toggle { display: flex; }
-    .nav-inner { grid-template-columns: auto 1fr auto; padding: 8px 20px; }
-    .logo img { height: 150px; }
-    .hero { padding-top: 12px; }
+    .nav-inner { grid-template-columns: auto 1fr auto; padding: 6px 20px; }
+    .logo img { height: min(150px, 20vh); }
     .nav-right a:not(.cart-link) { display: none; }
+    .top-viewport { min-height: 480px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="nav-inner">
-    <nav class="nav-left">
-      <a href="/shop">Shop</a>
-      <a href="/contact">Contact Us</a>
-      <a href="/faqs">FAQs</a>
-    </nav>
+<div class="top-viewport">
 
-    <a href="/" class="logo">
-      <img src="logo.png" alt="The Kept Women — Always Confident">
-    </a>
-
-    <div class="nav-right">
-      <a href="/account">Account</a>
-      <a href="/cart" class="cart-link">Cart (0)</a>
-      <button class="nav-toggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
     </div>
   </div>
-</header>
 
-<section class="hero">
-  <img src="hero.png" alt="The Kept Woman — backless gown, Atlanta skyline">
-</section>
+  <header>
+    <div class="nav-inner">
+      <nav class="nav-left">
+        <a href="/shop">Shop</a>
+        <a href="/contact">Contact Us</a>
+        <a href="/faqs">FAQs</a>
+      </nav>
 
-<div class="hero-caption">
+      <a href="/" class="logo">
+        <img src="logo.png" alt="The Kept Women — Always Confident">
+      </a>
+
+      <div class="nav-right">
+        <a href="/account">Account</a>
+        <a href="/cart" class="cart-link">Cart (0)</a>
+        <button class="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="hero.png" alt="The Kept Woman — backless gown, Atlanta skyline">
+  </section>
+
+</div>
+
+<div class="shop-cta">
   <a href="/shop">Shop Now</a>
 </div>
 
