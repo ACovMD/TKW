@@ -64,7 +64,7 @@
     white-space: nowrap;
   }
 
-  .logo img { height: 78px; width: auto; display: block; margin: 0 auto; }
+  .logo img { height: 130px; width: auto; display: block; margin: 0 auto; }
 
   .nav-right {
     display: flex;
@@ -99,25 +99,11 @@
     background: #1A1610;
   }
 
-  /* ── BRAND TITLE ── */
-  .brand-title {
-    text-align: center;
-    padding: 96px 20px 16px;
-  }
-
-  .brand-title h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: clamp(20px, 2.2vw, 30px);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #1A1610;
-  }
-
-  /* ── HERO ── */
+/* ── HERO ── */
   .hero {
     width: min(97vw, 1400px);
     margin: 0 auto;
+    padding-top: 168px;
     background: #FFFFFF;
   }
 
@@ -201,11 +187,10 @@
   @media (max-width: 768px) {
     .nav-left { display: none; }
     .nav-toggle { display: flex; }
-    .nav-inner { grid-template-columns: auto 1fr auto; padding: 10px 20px; }
-    .logo img { height: 54px; }
-    .brand-title { padding: 88px 20px 14px; }
+    .nav-inner { grid-template-columns: auto 1fr auto; padding: 8px 20px; }
+    .logo img { height: 84px; }
+    .hero { padding-top: 108px; }
     .nav-right a:not(.cart-link) { display: none; }
-    .hero-caption { left: 20px; bottom: 32px; }
   }
 </style>
 </head>
@@ -232,10 +217,6 @@
     </div>
   </div>
 </header>
-
-<section class="brand-title">
-  <h1>The Kept Women</h1>
-</section>
 
 <section class="hero">
   <img src="hero.png" alt="The Kept Woman — backless gown, Atlanta skyline">
