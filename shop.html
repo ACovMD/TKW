@@ -110,6 +110,23 @@
     padding: 0 20px;
   }
 
+  .product-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  .product-card__media img.img-back {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+
+  .product-card:hover .product-card__media img.img-back { opacity: 1; }
+
   .product-card__badge {
     position: absolute;
     top: 14px;
@@ -255,12 +272,13 @@
     <p class="product-card__price">$128.00</p>
   </a>
 
-  <a class="product-card" href="#" data-category="apparel">
+  <a class="product-card" href="product-guinevere.html" data-category="apparel">
     <div class="product-card__media">
-      <span>Product photo goes here</span>
+      <img class="img-front" src="guinevere-front-1.png" alt="The Guinevere Dress — front view">
+      <img class="img-back" src="guinevere-back-1.png" alt="The Guinevere Dress — open back with gold ring detail">
     </div>
-    <p class="product-card__name">The Open-Back Gown</p>
-    <p class="product-card__meta">Evening length — XS–XL</p>
+    <p class="product-card__name">The Guinevere</p>
+    <p class="product-card__meta">Open-back gown · Gold ring hardware — XS–XL</p>
     <p class="product-card__price">$168.00</p>
   </a>
 
