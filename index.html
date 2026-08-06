@@ -232,8 +232,34 @@
     .nav-right a:not(.cart-link) { display: none; }
   }
 </style>
+<link rel="stylesheet" href="gate.css" />
+<script>
+  // Runs before paint — hides the page immediately if the visitor
+  // hasn't passed the gate yet, preventing a flash of real content.
+  try {
+    if (localStorage.getItem('tkw_gate_passed') !== '1') {
+      document.documentElement.classList.add('tkw-gated');
+    }
+  } catch (e) {
+    document.documentElement.classList.add('tkw-gated');
+  }
+</script>
+<link rel="stylesheet" href="mobile-nav.css" />
 </head>
 <body>
+<div id="tkw-gate-overlay">
+  <img class="tkw-gate-logo" src="logo.png" alt="The Kept Women — Always Confident">
+  <h1 class="tkw-gate-heading">Early Access</h1>
+  <p class="tkw-gate-sub">We're putting on the final touches. Enter your email for a first look before we open to everyone.</p>
+  <form class="tkw-gate-form" id="tkw-gate-form">
+    <input class="tkw-gate-input" type="email" id="tkw-gate-email" placeholder="your@email.com" autocomplete="email" required>
+    <button class="tkw-gate-submit" type="submit">Enter</button>
+  </form>
+  <p class="tkw-gate-error" id="tkw-gate-error"></p>
+  <p class="tkw-gate-note">The Kept Women, LLC &middot; Atlanta, Georgia</p>
+</div>
+<script src="gate.js" defer></script>
+
 
 <div class="top-viewport">
 
@@ -271,6 +297,19 @@
       </div>
     </div>
   </header>
+<nav class="tkw-mobile-nav" id="tkw-mobile-nav" aria-label="Mobile navigation">
+  <button class="tkw-mobile-nav-close" id="tkw-mobile-nav-close" aria-label="Close menu">&times;</button>
+  <div class="tkw-mobile-nav-links">
+    <a href="shop.html">Shop</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="faqs.html">FAQs</a>
+  </div>
+  <div class="tkw-mobile-nav-footer">
+    <a href="https://instagram.com/thekeptwomen" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@thekeptwomen" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</nav>
+
 
   <section class="hero">
     <img src="hero.png" alt="The Kept Woman — backless gown, Atlanta skyline">
@@ -293,5 +332,6 @@
   <p>&copy; 2026 The Kept Women, LLC &middot; Atlanta, Georgia</p>
 </footer>
 
+<script src="mobile-nav.js" defer></script>
 </body>
 </html>
