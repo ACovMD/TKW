@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Gloria — The Kept Woman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: #FFFFFF;
+    color: #1A1610;
+    font-weight: 300;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── SCROLLING BANNER ── */
+  .ticker { background: #1A1610; overflow: hidden; padding: 10px 0; }
+  .ticker-track { display: flex; width: max-content; animation: ticker-scroll 22s linear infinite; }
+  .ticker-item {
+    display: flex; align-items: center; gap: 28px; padding-right: 28px;
+    font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #FFFFFF; white-space: nowrap;
+  }
+  .ticker-item::after { content: '◆'; font-size: 6px; color: #C9A070; }
+  @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── NAV ── */
+  header { background: #FFFFFF; border-bottom: 1px solid #EFEBE3; }
+  .nav-inner {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    max-width: 1400px; margin: 0 auto; padding: 8px 40px;
+  }
+  .nav-left { display: flex; gap: 36px; }
+  .nav-left a {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #1A1610; transition: opacity 0.2s;
+  }
+  .nav-left a:hover, .nav-left a.active { opacity: 0.55; }
+  .logo { text-align: center; display: block; }
+  .logo img { height: min(180px, 16vh); width: auto; display: block; margin: 0 auto; }
+  .nav-right { display: flex; justify-content: flex-end; gap: 30px; }
+  .nav-right a, .nav-right button {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #1A1610; background: none; border: none; cursor: pointer; transition: opacity 0.2s;
+  }
+  .nav-right a:hover, .nav-right button:hover { opacity: 0.55; }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+  .nav-toggle span { width: 22px; height: 1px; background: #1A1610; }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    max-width: 1400px; margin: 0 auto;
+    padding: 28px 40px 0;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #A8A196;
+  }
+  .breadcrumb a { color: #6B6459; transition: color 0.2s; }
+  .breadcrumb a:hover { color: #1A1610; }
+  .breadcrumb span { margin: 0 8px; }
+
+  /* ── PRODUCT LAYOUT ── */
+  .product-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 40px 100px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+  }
+
+  /* ── GALLERY ── */
+  .gallery { display: flex; gap: 14px; }
+
+  .thumb-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 84px;
+    flex-shrink: 0;
+  }
+
+  .thumb {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+    border: 1px solid transparent;
+  }
+  .thumb.active, .thumb:hover { opacity: 1; border-color: #1A1610; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+
+  .main-media {
+    flex: 1;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+    background: #F5F2EC;
+    cursor: zoom-in;
+  }
+  .main-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.2s ease-out;
+  }
+  .main-media.zoomed img {
+    transform: scale(1.9);
+    cursor: zoom-out;
+  }
+  .zoom-hint {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: rgba(26,22,16,0.65);
+    padding: 6px 12px;
+    pointer-events: none;
+  }
+  .main-media.zoomed .zoom-hint { display: none; }
+
+  /* ── DETAILS ── */
+  .details { padding-top: 4px; }
+
+  .details__name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 3.4vw, 46px);
+    margin-bottom: 10px;
+  }
+
+  .details__price {
+    font-size: 16px;
+    color: #1A1610;
+    margin-bottom: 6px;
+  }
+
+  .details__klarna {
+    font-size: 11px;
+    color: #A8A196;
+    margin-bottom: 28px;
+  }
+
+  .rule { height: 1px; background: #EFEBE3; margin: 26px 0; }
+
+  .details__label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #C9A070;
+    margin-bottom: 12px;
+  }
+
+  .size-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+  .size-btn {
+    border: 1px solid #E2DACB;
+    background: transparent;
+    color: #1A1610;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .size-btn:hover { border-color: #1A1610; }
+  .size-btn.active { background: #1A1610; border-color: #1A1610; color: #FFFFFF; }
+
+  .size-guide-link {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C9A070;
+    border-bottom: 1px solid #E2DACB;
+    margin-bottom: 30px;
+  }
+  .size-guide-link:hover { border-bottom-color: #C9A070; }
+
+  .btn-atc {
+    width: 100%;
+    padding: 16px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: #1A1610;
+    border: 1px solid #1A1610;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+  .btn-atc:hover { background: #FFFFFF; color: #1A1610; }
+
+  .btn-atc.added { background: #6B6459; border-color: #6B6459; }
+
+  .notify-note {
+    text-align: center;
+    font-size: 10px;
+    color: #A8A196;
+    margin-bottom: 34px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── ACCORDION ── */
+  .accordion-item { border-bottom: 1px solid #EFEBE3; }
+  .accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    background: none;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1A1610;
+    cursor: pointer;
+    text-align: left;
+  }
+  .accordion-trigger .icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: #C9A070;
+    font-weight: 300;
+    transition: transform 0.3s;
+  }
+  .accordion-item.open .accordion-trigger .icon { transform: rotate(45deg); }
+  .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .accordion-item.open .accordion-body { max-height: 300px; }
+  .accordion-body-inner {
+    padding-bottom: 20px;
+    font-size: 12px;
+    line-height: 1.85;
+    color: #6B6459;
+  }
+
+  /* ── FOOTER ── */
+  footer { padding: 60px 40px 40px; text-align: center; border-top: 1px solid #EFEBE3; }
+  footer .footer-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 28px; flex-wrap: wrap; }
+  footer .footer-links a {
+    font-size: 10px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #6B6459; transition: color 0.2s;
+  }
+  footer .footer-links a:hover { color: #1A1610; }
+  footer p { font-size: 10px; color: #A8A196; letter-spacing: 0.06em; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .product-page { grid-template-columns: 1fr; gap: 32px; padding: 20px 20px 80px; }
+    .breadcrumb { padding: 20px 20px 0; }
+  }
+  @media (max-width: 768px) {
+    .nav-left { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-inner { grid-template-columns: auto 1fr auto; padding: 6px 20px; }
+    .logo img { height: min(110px, 14vh); }
+    .nav-right a:not(.cart-link) { display: none; }
+    .gallery { flex-direction: column-reverse; }
+    .thumb-col { flex-direction: row; width: 100%; overflow-x: auto; }
+    .thumb { width: 64px; flex-shrink: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+  </div>
+</div>
+
+<header>
+  <div class="nav-inner">
+    <nav class="nav-left">
+      <a href="shop.html" class="active">Shop</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="faqs.html">FAQs</a>
+    </nav>
+
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="The Kept Women — Always Confident">
+    </a>
+
+    <div class="nav-right">
+      <a href="account.html">Account</a>
+      <a href="cart.html" class="cart-link">Cart (0)</a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">Home</a><span>/</span>
+  <a href="shop.html">Shop</a><span>/</span>
+  The Gloria
+</nav>
+
+<div class="product-page">
+
+  <!-- ── GALLERY ── -->
+  <div class="gallery">
+    <div class="thumb-col" id="thumb-col">
+      <div class="thumb active" data-src="gloria-front-1.png">
+        <img src="gloria-front-1.png" alt="The Gloria — front">
+      </div>
+      <div class="thumb" data-src="gloria-back-1.png">
+        <img src="gloria-back-1.png" alt="The Gloria — open low back">
+      </div>
+      <div class="thumb" data-src="gloria-detail.png">
+        <img src="gloria-detail.png" alt="The Gloria — gold shell buckle detail">
+      </div>
+      <div class="thumb" data-src="gloria-front-2.png">
+        <img src="gloria-front-2.png" alt="The Gloria — front, alternate model">
+      </div>
+      <div class="thumb" data-src="gloria-back-2.png">
+        <img src="gloria-back-2.png" alt="The Gloria — back, alternate model">
+      </div>
+    </div>
+
+    <div class="main-media" id="main-media">
+      <img id="main-img" src="gloria-front-1.png" alt="The Gloria Dress">
+      <span class="zoom-hint">Click to Zoom</span>
+    </div>
+  </div>
+
+  <!-- ── DETAILS ── -->
+  <div class="details">
+    <h1 class="details__name">The Gloria</h1>
+    <p class="details__price">$148.00</p>
+    <p class="details__klarna">or 4 payments of $37.00 with Afterpay / Klarna</p>
+
+    <div class="rule"></div>
+
+    <p class="details__label">Select Size</p>
+    <div class="size-row" id="size-row">
+      <button class="size-btn">XS</button>
+      <button class="size-btn">S</button>
+      <button class="size-btn">M</button>
+      <button class="size-btn">L</button>
+      <button class="size-btn">XL</button>
+    </div>
+    <a href="faqs.html" class="size-guide-link">Size Guide</a>
+
+    <button class="btn-atc" id="atc-btn">Add to Cart</button>
+    <p class="notify-note">Free shipping with every $125 purchase</p>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">
+        Product Details
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-body-inner">
+          A sleeveless ruched maxi gown finished with a sculptural gold shell buckle at the shoulder.
+          Bateau neckline in front, open low back, and a side slit at the hem. Fitted through the
+          bodice with soft ruching at the waist for a flattering, sculpted line. Designed to pair
+          effortlessly with our backless bra collection.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">
+        Fabric & Care
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-body-inner">
+          Soft, fluid jersey with stretch recovery. Hand wash cold or dry clean. Hang dry.
+          Do not bleach or tumble dry. Gold-tone shoulder buckle — avoid prolonged contact with water
+          and perfume for longevity.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">
+        Shipping & Returns
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-body-inner">
+          Free shipping on orders over $125. Standard delivery 3–5 business days from Atlanta,
+          Georgia. 30-day satisfaction guarantee — see our <a href="faqs.html" style="color:#C9A070;">FAQs</a>
+          for exchange details.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="shop.html">Shop</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="faqs.html">FAQs</a>
+    <a href="https://instagram.com/thekeptwomen" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@thekeptwomen" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>&copy; 2026 The Kept Women, LLC &middot; Atlanta, Georgia</p>
+</footer>
+
+<script>
+  // Thumbnail swap
+  document.querySelectorAll('.thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      document.getElementById('main-img').src = thumb.dataset.src;
+      document.getElementById('main-media').classList.remove('zoomed');
+    });
+  });
+
+  // Click-to-zoom
+  const mainMedia = document.getElementById('main-media');
+  const mainImg = document.getElementById('main-img');
+
+  mainMedia.addEventListener('click', (e) => {
+    const isZoomed = mainMedia.classList.toggle('zoomed');
+    if (isZoomed) {
+      const rect = mainMedia.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      mainImg.style.transformOrigin = x + '% ' + y + '%';
+    }
+  });
+
+  mainMedia.addEventListener('mousemove', (e) => {
+    if (!mainMedia.classList.contains('zoomed')) return;
+    const rect = mainMedia.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    mainImg.style.transformOrigin = x + '% ' + y + '%';
+  });
+
+  // Size selector
+  document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Add to cart
+  document.getElementById('atc-btn').addEventListener('click', function () {
+    const selected = document.querySelector('.size-btn.active');
+    if (!selected) {
+      alert('Please select a size.');
+      return;
+    }
+    const orig = this.textContent;
+    this.textContent = 'Added';
+    this.classList.add('added');
+    setTimeout(() => {
+      this.textContent = orig;
+      this.classList.remove('added');
+    }, 1800);
+  });
+
+  // Accordion
+  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      trigger.closest('.accordion-item').classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
