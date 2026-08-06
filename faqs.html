@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQs — The Kept Woman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: #FFFFFF;
+    color: #1A1610;
+    font-weight: 300;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── SCROLLING BANNER ── */
+  .ticker { background: #1A1610; overflow: hidden; padding: 10px 0; }
+  .ticker-track { display: flex; width: max-content; animation: ticker-scroll 22s linear infinite; }
+  .ticker-item {
+    display: flex; align-items: center; gap: 28px; padding-right: 28px;
+    font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #FFFFFF; white-space: nowrap;
+  }
+  .ticker-item::after { content: '◆'; font-size: 6px; color: #C9A070; }
+  @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── NAV ── */
+  header { background: #FFFFFF; border-bottom: 1px solid #EFEBE3; }
+  .nav-inner {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    max-width: 1400px; margin: 0 auto; padding: 8px 40px;
+  }
+  .nav-left { display: flex; gap: 36px; }
+  .nav-left a {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #1A1610; transition: opacity 0.2s;
+  }
+  .nav-left a:hover, .nav-left a.active { opacity: 0.55; }
+  .logo { text-align: center; display: block; }
+  .logo img { height: min(180px, 16vh); width: auto; display: block; margin: 0 auto; }
+  .nav-right { display: flex; justify-content: flex-end; gap: 30px; }
+  .nav-right a, .nav-right button {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #1A1610; background: none; border: none; cursor: pointer; transition: opacity 0.2s;
+  }
+  .nav-right a:hover, .nav-right button:hover { opacity: 0.55; }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+  .nav-toggle span { width: 22px; height: 1px; background: #1A1610; }
+
+  /* ── PAGE HEADER ── */
+  .page-header { text-align: center; padding: 64px 20px 20px; }
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(34px, 4.5vw, 54px);
+    letter-spacing: 0.04em;
+  }
+  .page-header p {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #6B6459;
+    letter-spacing: 0.05em;
+  }
+  .page-header p a { color: #C9A070; border-bottom: 1px solid #E2DACB; }
+
+  /* ── FAQ ── */
+  .faq-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 56px 24px 110px;
+  }
+
+  .faq-category {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #C9A070;
+    margin: 48px 0 4px;
+  }
+  .faq-category:first-child { margin-top: 0; }
+
+  .faq-item { border-bottom: 1px solid #EFEBE3; }
+
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1A1610;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .faq-q .icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: #C9A070;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .faq-item.open .faq-q .icon { transform: rotate(45deg); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 13px;
+    line-height: 1.85;
+    color: #6B6459;
+  }
+  .faq-item.open .faq-a { max-height: 300px; }
+  .faq-a-inner { padding-bottom: 22px; }
+  .faq-a-inner a { color: #C9A070; border-bottom: 1px solid #E2DACB; }
+
+  /* ── FOOTER ── */
+  footer { padding: 60px 40px 40px; text-align: center; border-top: 1px solid #EFEBE3; }
+  footer .footer-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 28px; flex-wrap: wrap; }
+  footer .footer-links a {
+    font-size: 10px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #6B6459; transition: color 0.2s;
+  }
+  footer .footer-links a:hover { color: #1A1610; }
+  footer p { font-size: 10px; color: #A8A196; letter-spacing: 0.06em; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .nav-left { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-inner { grid-template-columns: auto 1fr auto; padding: 6px 20px; }
+    .logo img { height: min(110px, 14vh); }
+    .nav-right a:not(.cart-link) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+    <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+    <span class="ticker-item">New Inventory Added Every Week</span>
+  </div>
+</div>
+
+<header>
+  <div class="nav-inner">
+    <nav class="nav-left">
+      <a href="shop.html">Shop</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="faqs.html" class="active">FAQs</a>
+    </nav>
+
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="The Kept Women — Always Confident">
+    </a>
+
+    <div class="nav-right">
+      <a href="account.html">Account</a>
+      <a href="cart.html" class="cart-link">Cart (0)</a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="page-header">
+  <h1>Frequently Asked Questions</h1>
+  <p>Can't find your answer? Email <a href="mailto:hello@thekeptwomen.com">hello@thekeptwomen.com</a></p>
+</div>
+
+<div class="faq-wrap">
+
+  <p class="faq-category">The Bra</p>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      Will this work for my bust size?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Our brassiere is engineered specifically for C–H cup sizes. The fit-modifying panels and adjustable
+      strap system provide support that conventional backless options can't deliver for fuller busts.
+      If you wear an H+ cup, please contact us — we're happy to discuss custom options.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      What are the three strap configurations?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Halter-neck, traditional over-the-shoulder, and front-crossed. Each configuration pairs with
+      different necklines and silhouettes — a styling guide is included with every order.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      How long does one bra last?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      With proper care, our bra is designed for 50+ wears — significantly better value than
+      single-use adhesive alternatives. Adhesive longevity depends on proper application and care.
+    </div></div>
+  </div>
+
+  <p class="faq-category">Sizing & Fit</p>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      How do I know which size to order?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Measure your shoulder socket circumference — wrap a soft tape around your torso at shoulder-blade
+      level, parallel to the floor — then confirm your cup size. When in doubt, email us and we'll walk
+      you through it personally.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      What if I'm between sizes?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Size up. Our proprietary mesh construction naturally accommodates fluctuations and will conform
+      to your shape over the first few wears.
+    </div></div>
+  </div>
+
+  <p class="faq-category">Application & Care</p>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      How do I apply it correctly?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Start with clean, dry skin — no lotion, oil, or deodorant on the application area. Warm the bra
+      in your hands for 30 seconds to activate the adhesive, position the cups, then press firmly around
+      the entire edge for 30 seconds. A full video tutorial is included with every order.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      How do I clean it?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Hand wash gently with mild soap and warm water after each wear. Never machine wash or dry.
+      Allow to air dry completely and store flat in the original pouch.
+    </div></div>
+  </div>
+
+  <p class="faq-category">Orders & Shipping</p>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      Do you offer payment plans?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Yes — all products are available via Afterpay and Klarna in 4 interest-free installments,
+      selected at checkout.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      How long does shipping take?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      Standard shipping is 3–5 business days from Atlanta, Georgia. Free standard shipping on all
+      orders over $125.
+    </div></div>
+  </div>
+
+  <p class="faq-category">Returns & Refunds</p>
+
+  <div class="faq-item">
+    <button class="faq-q">
+      What is your return policy?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">
+      We offer a 30-day satisfaction guarantee. Contact
+      <a href="mailto:hello@thekeptwomen.com">hello@thekeptwomen.com</a> within 30 days of delivery
+      for an exchange, store credit, or refund. Worn items cannot be returned, but sizing exchanges
+      are always accommodated.
+    </div></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="shop.html">Shop</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="faqs.html">FAQs</a>
+    <a href="https://instagram.com/thekeptwomen" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@thekeptwomen" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>&copy; 2026 The Kept Women, LLC &middot; Atlanta, Georgia</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      item.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
