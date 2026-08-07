@@ -175,9 +175,9 @@
     .form-row { grid-template-columns: 1fr; }
   }
 </style>
+<link rel="stylesheet" href="mobile-nav.css" />
 </head>
 <body>
-
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
     <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
@@ -212,6 +212,19 @@
     </div>
   </div>
 </header>
+<nav class="tkw-mobile-nav" id="tkw-mobile-nav" aria-label="Mobile navigation" style="position:fixed;inset:0;z-index:800;background:#FFFFFF;transform:translateX(-100%);">
+  <button class="tkw-mobile-nav-close" id="tkw-mobile-nav-close" aria-label="Close menu">&times;</button>
+  <div class="tkw-mobile-nav-links">
+    <a href="shop.html">Shop</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="faqs.html">FAQs</a>
+  </div>
+  <div class="tkw-mobile-nav-footer">
+    <a href="https://instagram.com/thekeptwomen" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@thekeptwomen" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</nav>
+
 
 <div class="page-header">
   <h1>Get in Touch</h1>
@@ -287,5 +300,6 @@
   });
 </script>
 
+<script src="mobile-nav.js" defer></script>
 </body>
 </html>
