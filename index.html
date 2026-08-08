@@ -286,8 +286,39 @@
 
 
   <section class="hero">
-    <img src="hero.png" alt="The Kept Woman — backless gown, Atlanta skyline">
+    <img src="hero.png" alt="The Kept Woman — backless gown, Atlanta skyline" id="hero-image">
   </section>
+
+  <script>
+    // Randomly assigns each new visitor one of two hero photos (roughly
+    // even 50/50 split across all traffic), then remembers that choice
+    // so returning visitors keep seeing the same one — consistent
+    // branding instead of the image changing every visit.
+    (function () {
+      var heroImages = ['hero.png', 'hero-2.png'];
+      var heroAltText = {
+        'hero.png': 'The Kept Woman — backless gown, Atlanta skyline',
+        'hero-2.png': 'The Kept Woman — backless gown, Miami skyline'
+      };
+      var STORAGE_KEY = 'tkw_hero_variant';
+
+      var chosen = null;
+      try {
+        chosen = localStorage.getItem(STORAGE_KEY);
+      } catch (e) { /* localStorage unavailable */ }
+
+      if (!chosen || heroImages.indexOf(chosen) === -1) {
+        chosen = heroImages[Math.random() < 0.5 ? 0 : 1];
+        try {
+          localStorage.setItem(STORAGE_KEY, chosen);
+        } catch (e) { /* non-fatal */ }
+      }
+
+      var heroEl = document.getElementById('hero-image');
+      heroEl.src = chosen;
+      heroEl.alt = heroAltText[chosen] || heroEl.alt;
+    })();
+  </script>
 
 </div>
 
