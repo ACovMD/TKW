@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Kept Woman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: #FFFFFF;
+    color: #1A1610;
+    font-weight: 300;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ── PAGE TOP WRAPPER ── */
+  .top-viewport {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── SCROLLING BANNER ── */
+  .ticker {
+    flex-shrink: 0;
+    background: #1A1610;
+    overflow: hidden;
+    padding: 10px 0;
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 22s linear infinite;
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-right: 28px;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+  .ticker-item::after {
+    content: '◆';
+    font-size: 6px;
+    color: #C9A070;
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── NAV ── */
+  header {
+    flex-shrink: 0;
+    background: #FFFFFF;
+  }
+
+  .nav-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 8px 40px;
+  }
+
+  .nav-left {
+    display: flex;
+    gap: 36px;
+  }
+
+  .nav-left a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1A1610;
+    transition: opacity 0.2s;
+  }
+  .nav-left a:hover { opacity: 0.55; }
+
+  .logo {
+    text-align: center;
+    display: block;
+  }
+
+  .logo img {
+    height: min(340px, 26vh);
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .nav-right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+  }
+
+  .nav-right a, .nav-right button {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1A1610;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .nav-right a:hover, .nav-right button:hover { opacity: 0.55; }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    width: 22px;
+    height: 1px;
+    background: #1A1610;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    width: min(97vw, 1400px);
+    margin: 0 auto;
+    padding: 8px 0 0;
+    background: #FFFFFF;
+  }
+
+  .hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Placeholder gradient shown until a real image is uploaded */
+  .hero-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #F3EFE8 0%, #E4DCCB 55%, #D3C7AE 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-placeholder span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: rgba(26,22,16,0.28);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SHOP NOW ── */
+  .shop-cta {
+    text-align: center;
+    padding: 22px 20px 56px;
+  }
+
+  .shop-cta a {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1A1610;
+    background: #FFFFFF;
+    border: 1px solid #1A1610;
+    padding: 14px 42px;
+    transition: all 0.2s;
+  }
+  .shop-cta a:hover {
+    background: #1A1610;
+    color: #FFFFFF;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-top: 1px solid #EFEBE3;
+  }
+
+  footer .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  footer .footer-links a {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6B6459;
+    transition: color 0.2s;
+  }
+  footer .footer-links a:hover { color: #1A1610; }
+
+  footer p {
+    font-size: 10px;
+    color: #A8A196;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .nav-left { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-inner { grid-template-columns: auto 1fr auto; padding: 6px 20px; }
+    .logo img { height: min(150px, 20vh); }
+    .nav-right a:not(.cart-link) { display: none; }
+  }
+</style>
+<link rel="stylesheet" href="mobile-nav.css" />
+</head>
+<body>
+<div class="top-viewport">
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
+      <span class="ticker-item">Free Shipping With Every $125 Purchase</span>
+      <span class="ticker-item">New Inventory Added Every Week</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav-inner">
+      <nav class="nav-left">
+        <a href="shop.html">Shop</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="faqs.html">FAQs</a>
+      </nav>
+
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="The Kept Women — Always Confident">
+      </a>
+
+      <div class="nav-right">
+        <a href="account.html">Account</a>
+        <a href="cart.html" class="cart-link">Cart (0)</a>
+        <button class="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+<nav class="tkw-mobile-nav" id="tkw-mobile-nav" aria-label="Mobile navigation" style="position:fixed;inset:0;z-index:800;background:#FFFFFF;transform:translateX(-100%);">
+  <button class="tkw-mobile-nav-close" id="tkw-mobile-nav-close" aria-label="Close menu">&times;</button>
+  <div class="tkw-mobile-nav-links">
+    <a href="shop.html">Shop</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="faqs.html">FAQs</a>
+  </div>
+  <div class="tkw-mobile-nav-footer">
+    <a href="https://instagram.com/thekeptwomen" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@thekeptwomen" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</nav>
+
+
+  <section class="hero">
+    <img src="hero.png" alt="The Kept Woman — backless gown, Atlanta skyline" id="hero-image">
+  </section>
+
+  <script>
+    // Randomly assigns each new visitor one of two hero photos (roughly
+    // even 50/50 split across all traffic), then remembers that choice
+    // so returning visitors keep seeing the same one — consistent
+    // branding instead of the image changing every visit.
+    (function () {
+      var heroImages = ['hero.png', 'hero-2.png'];
+      var heroAltText = {
+        'hero.png': 'The Kept Woman — backless gown, Atlanta skyline',
+        'hero-2.png': 'The Kept Woman — backless gown, Miami skyline'
+      };
+      var STORAGE_KEY = 'tkw_hero_variant';
+
+      var chosen = null;
+      try {
+        chosen = localStorage.getItem(STORAGE_KEY);
+      } catch (e) { /* localStorage unavailable */ }
+
+      if (!chosen || heroImages.indexOf(chosen) === -1) {
+        chosen = heroImages[Math.random() < 0.5 ? 0 : 1];
+        try {
+          localStorage.setItem(STORAGE_KEY, chosen);
+        } catch (e) { /* non-fatal */ }
+      }
+
+      var heroEl = document.getElementById('hero-image');
+      heroEl.src = chosen;
+      heroEl.alt = heroAltText[chosen] || heroEl.alt;
+    })();
+  </script>
+
+</div>
+
+<div class="shop-cta">
+  <a href="shop.html">Shop Now</a>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="shop.html">Shop</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="faqs.html">FAQs</a>
+    <a href="https://instagram.com/thekeptwomen" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@thekeptwomen" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>&copy; 2026 The Kept Women, LLC &middot; Atlanta, Georgia</p>
+</footer>
+
+<script src="mobile-nav.js" defer></script>
+</body>
+</html>
